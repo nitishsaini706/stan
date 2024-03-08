@@ -4,9 +4,9 @@ import (
     "fmt"
     "log"
     "sync"
-    "./models"
-    "./store"
-    "./web"
+    "github.com/nitishsaini706/stan/assignment2/models"
+    "github.com/nitishsaini706/stan/assignment2/store"
+    "github.com/nitishsaini706/stan/assignment2/web"
     "database/sql"
     _ "github.com/mattn/go-sqlite3"
 )
