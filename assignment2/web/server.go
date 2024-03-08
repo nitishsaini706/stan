@@ -11,15 +11,19 @@ import (
 func SetupRouter(s *store.Store) *gin.Engine {
     r := gin.Default()
 
-	//create user
+    // Create user
     r.POST("/users", func(c *gin.Context) {
         var user models.User
         if err := c.ShouldBindJSON(&user); err != nil {
-            c.JSON(400, gin.H{"error": err.Error()})
+            c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
             return
         }
-        s.CreateUser(user)
-        c.JSON(200, user)
+        err := s.CreateUser(user) // Modified to handle error from CreateUser
+        if err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+            return
+        }
+        c.JSON(http.StatusOK, user)
     })
 
     // GET handler to read a user
@@ -30,7 +34,7 @@ func SetupRouter(s *store.Store) *gin.Engine {
             return
         }
 
-        user, err := s.GetUser(id)
+        user, err := s.GetUser(id) // Modified to match the corrected function name
         if err == store.ErrNotFound {
             c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
             return
@@ -55,9 +59,8 @@ func SetupRouter(s *store.Store) *gin.Engine {
             c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
             return
         }
-        updateUser.ID = id // Ensure the ID is set correctly from the path
 
-        err = s.UpdateUser(id, updateUser)
+        err = s.UpdateUser(id, updateUser) // Assuming UpdateUser returns an error to handle
         if err == store.ErrNotFound {
             c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
             return
@@ -77,7 +80,7 @@ func SetupRouter(s *store.Store) *gin.Engine {
             return
         }
 
-        err = s.DeleteUser(id)
+        err = s.DeleteUser(id) // Assuming DeleteUser returns an error to handle
         if err == store.ErrNotFound {
             c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
             return
