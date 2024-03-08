@@ -2,7 +2,7 @@ package store
 
 import (
     "database/sql"
-    "github.com/nitishsaini706/stan/assignment2/models/"
+    "github.com/nitishsaini706/stan/assignment2/models"
     _ "github.com/mattn/go-sqlite3"
 )
 
