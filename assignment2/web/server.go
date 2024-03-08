@@ -2,7 +2,7 @@ package web
 
 import (
     "github.com/gin-gonic/gin"
-    "../store"
+    "github.com/nitishsaini706/stan/assignment2/store"
     "strconv"
 )
 

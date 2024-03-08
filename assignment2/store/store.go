@@ -2,8 +2,8 @@ package store
 
 import (
     "database/sql"
-"github.com/nitishsaini706/stan/assignment2/models"   
- _ "github.com/mattn/go-sqlite3"
+	"github.com/nitishsaini706/stan/assignment2/models"   
+ 	_ "github.com/mattn/go-sqlite3"
 )
 
 var ErrNotFound = sql.ErrNoRows
