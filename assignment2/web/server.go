@@ -1,8 +1,10 @@
 package web
 
 import (
+	"net/http"
     "github.com/gin-gonic/gin"
     "github.com/nitishsaini706/stan/assignment2/store"
+	"github.com/nitishsaini706/stan/assignment2/models"
     "strconv"
 )
 
@@ -28,7 +30,7 @@ func SetupRouter(s *store.Store) *gin.Engine {
             return
         }
 
-        user, err := s.ReadUser(id)
+        user, err := s.GetUser(id)
         if err == store.ErrNotFound {
             c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
             return
